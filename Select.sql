@@ -38,9 +38,13 @@ Order by EmpName DEsc
 select DeptNo, Sum(Salary) as Salary From Employee
 group by DeptNo;
 -- With Errors
-select Employee.DeptNo, DeptName, Sum(Salary) as Salary From Employee, Department
-group by Department.DeptNo;
-Where Employee.DeptNo = Department.DeptNo
+select Employee.DeptNo,  Sum(Salary) as Salary,  DeptName From Employee, Department
+group by Employee.DeptNo;
+
+
+Select DeptName, Sum(Salary) as Salary from Employee,Department
+where Employee.DeptNo = Department.DeptNo
+Group by (DeptName)
 
 
 
