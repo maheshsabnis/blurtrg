@@ -1,0 +1,85 @@
+-- SP with multiple ResultSets
+
+create procedure dbo.GetSomething
+as
+begin
+    select * from dbo.Person;
+    select * from dbo.Car;
+end;
+
+create procedure dbo.GetPeople
+as
+begin
+    select * from dbo.Person;
+end;
+
+create procedure dbo.GetCars
+as
+begin
+    select * from dbo.Car;
+end;
+
+-- This gives the same result as before
+create procedure dbo.GetSomething
+as
+begin
+    exec dbo.GetPeople;
+    exec dbo.GetCars;
+end;
+CREATE TABLE Persons (
+    ID int NOT NULL UNIQUE,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int
+);
+ALTER TABLE Persons
+ADD UNIQUE (ID);
+
+-- Chek
+
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int CHECK (Age>=18)
+);
+
+
+-- default
+
+CREATE TABLE Orders (
+    ID int NOT NULL,
+    OrderNumber int NOT NULL,
+    OrderDate date DEFAULT GETDATE()
+);
+
+
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    City varchar(255) DEFAULT 'Pune'
+);
+
+ALTER TABLE Persons
+ADD CONSTRAINT df_City
+DEFAULT 'Pune' FOR City;
+
+
+
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+HAVING COUNT(CustomerID) > 5;
+
+SELECT
+    product_name,
+    list_price
+FROM
+    production.products
+ORDER BY
+    list_price,
+    product_name 
+OFFSET 10 ROWS 
+FETCH NEXT 10 ROWS ONLY;

@@ -54,9 +54,14 @@ set @x = 'ss';
 SELECT ISNUMERIC(@x);
 
 -- User Defined Functions
-
+-- Create|ALter FUnction [NAME](Parameters....)
+--- returns DATATYPE | TABLE
+-- AS
+-- BODY
 -- Table-Valued Functions
+	-- Returns a Record Set whhc may have a single or mutiple row sets
 -- Scalar Valued Functions
+	-- Return a single Value
 Go
 -- Table VAlued Function
 Create function Fun_EmployeeList()      
@@ -64,9 +69,11 @@ returns table
 as      
 return(select * from Employee  )  
 
-
+-- FUnction Call
 select * from Fun_EmployeeList()  ;
 Go
+
+
 -- Scalar FUnction
 create function Fun_JOINCOLUMNS  
 (  
@@ -79,5 +86,5 @@ begin
 	return(select @EmpName+ ' ' +@Designation )  
 end  
 
-
+-- SCHEMA.FUNCtioNNAME
 select  dbo.Fun_JOINCOLUMNS ('Mahesh', 'Director') as Details;
